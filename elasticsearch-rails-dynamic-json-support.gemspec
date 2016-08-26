@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "elasticsearch-rails-dynamic-json-support.gemspec",
     "lib/elasticsearch-rails-dynamic-json-support.rb",
     "test/helper.rb",
     "test/test_elasticsearch-rails-dynamic-json-support.rb"
