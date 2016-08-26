@@ -17,11 +17,12 @@ Jeweler::Tasks.new do |gem|
   gem.name = "elasticsearch-rails-dynamic-json-support"
   gem.homepage = "http://github.com/flyfy1/elasticsearch-rails-dynamic-json-support"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "translate the attribute changes into document updates, for ElasticSearch"
+  gem.description = "Enhance elasticsearch-rails with `elasticsearch_json_changes` to translate the attribute changes into document updates"
   gem.email = "flyfy1@gmail.com"
   gem.authors = ["Song Yangyu"]
-  # dependencies defined in Gemfile
+
+  gem.add_dependency 'elasticsearch-rails', '~> 0.1.9'
 end
 Jeweler::RubygemsDotOrgTasks.new
 

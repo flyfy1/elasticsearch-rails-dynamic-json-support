@@ -5,6 +5,9 @@ source "https://rubygems.org"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
+
+gem 'elasticsearch-rails', "~> 0.1.9"
+
 group :development do
   gem "shoulda", ">= 0"
   gem "rdoc", "~> 3.12"
