@@ -1,5 +1,3 @@
-require 'elasticsearch-rails'
-
 module Elasticsearch
   module Model
     module Indexing
