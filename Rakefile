@@ -21,8 +21,6 @@ Jeweler::Tasks.new do |gem|
   gem.description = "Enhance elasticsearch-rails with `elasticsearch_json_changes` to translate the attribute changes into document updates"
   gem.email = "flyfy1@gmail.com"
   gem.authors = ["Song Yangyu"]
-
-  gem.add_dependency 'elasticsearch-rails', '~> 0.1.9'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
