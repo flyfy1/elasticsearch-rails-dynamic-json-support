@@ -1,23 +1,4 @@
-module Elasticsearch
-  module Model
-    module Indexing
-      module InstanceMethods
-        def update_document options = {}
-          if changed_attributes = self.instance_variable_get(:@__changed_attributes)
-            attributes = if target.respond_to? :elasticsearch_json_changes
-                           target.elasticsearch_json_changes changed_attributes
-                         elsif respond_to?(:as_indexed_json)
-                           self.as_indexed_json.select { |k,v| changed_attributes.keys.map(&:to_s).include? k.to_s }
-                         else
-                           changed_attributes
-                         end
+require 'elasticsearch/model'
 
-            update_document_attributes attributes, options
-          else
-            index_document(options)
-          end
-        end
-      end
-    end
-  end
-end
+require_relative 'elasticsearch/model/indexing_decorator'
+require_relative 'elasticsearch/model/cascade_update'

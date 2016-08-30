@@ -75,11 +75,9 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.0)
+  concurrent-ruby
   elasticsearch-rails (~> 0.1.9)
   jeweler (~> 2.0.1)
   rdoc (~> 3.12)
   shoulda
   simplecov
-
-BUNDLED WITH
-   1.12.5

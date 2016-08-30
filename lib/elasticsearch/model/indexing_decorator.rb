@@ -2,8 +2,6 @@ module Elasticsearch
   module Model
     module Indexing
       module InstanceMethods
-        puts 'InstanceMethods defined.'
-
         def update_document options = {}
           if changed_attributes = self.instance_variable_get(:@__changed_attributes)
             attributes = if target.respond_to? :elasticsearch_json_changes
