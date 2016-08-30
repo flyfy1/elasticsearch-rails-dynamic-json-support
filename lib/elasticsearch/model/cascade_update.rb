@@ -41,8 +41,14 @@ module Elasticsearch
       class_methods do
 
         # attributes is a pair of <key, block>
-        def es_register_attributes attributes
-          attributes.each do |k, v|
+        def es_register_attributes *attributes
+          hashed_attributes = attributes.extract_options!
+
+          attributes.each do |k|
+            json_attribute_registry[k] = lambda { |record| record.public_send k }
+          end
+
+          hashed_attributes.each do |k, v|
             k = k.to_s
             json_attribute_registry[k] = v || lambda { |record| record.public_send k }
           end
