@@ -60,9 +60,17 @@ module Elasticsearch
           return json_relationship_registry[key_name] unless blk
 
           relationship_name = key_name unless relationship_name
-          reverse_relationship_name = self.name.downcase unless reverse_relationship_name
+          relationship_name = relationship_name.to_s
+
+          reverse_relationship_name = self.name.demodulize.downcase unless reverse_relationship_name
+          reverse_relationship_name = reverse_relationship_name.to_s
 
           reflection = reflect_on_association relationship_name
+
+          # The fail is safe since it's in the initialization process
+          # TODO: make the initializer to include the fail
+          fail "Reflection not found for #{relationship_name} from class: #{self.name}" unless reflection
+
           reflected_class = reflection.class_name.constantize
 
           actor = Actor.new relationship_name, get_singularity(reflection), blk
@@ -101,7 +109,8 @@ module Elasticsearch
 
         def get_singularity(reflection)
           case reflection
-          when ActiveRecord::Reflection::HasManyReflection, ActiveRecord::Reflection::HasManyThroughAssociation
+            when ActiveRecord::Reflection::HasManyReflection, ActiveRecord::Reflection::ThroughReflection,
+                ActiveRecord::Reflection::HasAndBelongsToManyReflection
             :plural
           else
             :singular
