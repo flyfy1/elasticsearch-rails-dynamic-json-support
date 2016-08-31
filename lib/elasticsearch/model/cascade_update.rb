@@ -59,6 +59,9 @@ module Elasticsearch
           key_name = key_name.to_s
           return json_relationship_registry[key_name] unless blk
 
+          # If key_name has been defined, then fail fast
+          fail "json key_name has been already defined: #{key_name} for class #{self.name}" if json_relationship_registry[key_name]
+
           relationship_name = key_name unless relationship_name
           relationship_name = relationship_name.to_s
 
