@@ -97,12 +97,13 @@ Example usage (which solves the 2 issues above) is as given below:
 		end
     ```
 
-# Issues
+# ToDos
 
-- Tests.. since I don't have time to write test case for this project yet.
-- Due to the `lazy-loading` of model in rails, you need to specifically specify
-  the model in rails. Like in the `Review` class above, it's reference to
-  `Article` 
+- [ ] Tests.. since I don't have time to write test case for this project yet.
+- [ ] Due to the `lazy-loading` of model in rails, you need to specifically 
+  specify the model in rails. Like in the `Review` class above, it's reference
+  to `Article` (to make sure that `Article` class is loaded before `Review`)
+- [ ] Auto generation of mapping
 
 # Contributing to elasticsearch-rails-dynamic-json-support
  
