@@ -97,6 +97,10 @@ Example usage (which solves the 2 issues above) is as given below:
 		end
     ```
 
+# More features
+- Exclusion of keys: simply call 
+  `record.as_indexed_json: exclude_keys: %w[keys you do not like]`.
+
 # ToDos
 
 - [ ] Tests.. since I don't have time to write test case for this project yet.
