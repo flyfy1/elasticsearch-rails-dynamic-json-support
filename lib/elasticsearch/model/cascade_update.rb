@@ -41,7 +41,7 @@ module Elasticsearch
       class_methods do
 
         # attributes is a pair of <key, block>
-        def es_register_attributes *attributes
+        def es_register_attrs *attributes
           hashed_attributes = attributes.extract_options!
 
           attributes.each do |k|
