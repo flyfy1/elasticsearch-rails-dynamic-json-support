@@ -90,11 +90,19 @@ module Elasticsearch
 
         def to_indexed_json(record, options = {})
           result = {}
+          exclude_keys = options[:exclude_keys]
+          exclude_keys = [] unless exclude_keys
+          exclude_keys = exclude_keys.map(&:to_s)
+
           json_attribute_registry.each do |k, blk|
+            k = k.to_s
+            next if exclude_keys.include? k
             result[k] = blk[record]
           end
 
           json_relationship_registry.each do |k, actor|
+            k = k.to_s
+            next if exclude_keys.include? k
             result[k] = actor.to_json(record)
           end
 
