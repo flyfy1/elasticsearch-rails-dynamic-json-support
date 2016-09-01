@@ -70,10 +70,6 @@ module Elasticsearch
 
           reflection = reflect_on_association relationship_name
 
-          # The fail is safe since it's in the initialization process
-          # TODO: make the initializer to include the fail
-          fail "Reflection not found for #{relationship_name} from class: #{self.name}" unless reflection
-
           reflected_class = reflection.class_name.constantize
 
           actor = Actor.new relationship_name, get_singularity(reflection), blk
