@@ -100,6 +100,9 @@ Example usage (which solves the 2 issues above) is as given below:
 # More features
 - Exclusion of keys: simply call 
   `record.as_indexed_json: exclude_keys: %w[keys you do not like]`.
+- Selective Import: `es_to_json_when(scope_name, &condition_check_block)`. if
+  the scope_name is not given, it would import all by default.
+  `condition_check_block` is for checking before making the import
 
 # ToDos
 
