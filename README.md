@@ -64,9 +64,26 @@ Example usage (which solves the 2 issues above) is as given below:
 			include Elasticsearch::Model::CascadeUpdate
 
 			has_many :reviews
-			es_register_attributes id: nil, title: nil, article: lambda {|rec| rec.content }, created_at: nil, updated_at: nil
+			es_register_attributes :id, :title, article: lambda {|rec| rec.content }
+
+      # silent attribute would not be output by default
+			es_register_silent_attributes :created_at, :updated_at 
+
+      # register association, with: 
+      #   - key_name = :reviews
+      #   - get_assoc: default to be `#reviews` (the key_name)
+      #   - &blk: the render_assoc, default to be: `object#as_indexed_json`. 
+      #         it would use a `map` by default for the has_many relationships
+      #   - reverse_class: default to guess from the relationship
+      #   - reverse_trigger: lambda {|obj, changes| do_things }
+      #         the reverse_trigger, when the model change, to render the json
+      #         document and update the objects. the returns is an array of the
+      #         original object to be updated
 			es_register_assoc(:reviews) { |review| review.as_indexed_json }
 
+      # for the given changed_attributes, it would return the json to be fed
+      # into the `#update_document` method. What's given here is the default
+      # behaviour -- which is to find the keys, and do a matching
 			def elasticsearch_json_changes(changed_attributes)
 				keys_to_update = changed_attributes.keys.map {|k| key_map k}
 				self.as_indexed_json.select { |k,_| keys_to_update.include? k.to_s }
