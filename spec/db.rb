@@ -12,18 +12,17 @@ ActiveRecord::Schema.define(version: 1) do
   create_table :reviews do |t|
     t.integer :article_id, null: false
     t.string :content, null: false
+    t.string :nonsense
   end
 
   add_index :reviews, :article_id
 end
 
 class Article < ActiveRecord::Base
-  has_many :reviews
-
   validates_presence_of :title
   validates_presence_of :content
 end
 
 class Review < ActiveRecord::Base
-  belongs_to :article
+  validates_presence_of :content
 end
