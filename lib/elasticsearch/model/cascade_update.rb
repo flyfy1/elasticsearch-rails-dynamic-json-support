@@ -101,7 +101,7 @@ module Elasticsearch
               self.instance_variable_set(:@__changed_attributes__, instance.changes)
             end
 
-            after_commit do |instance|
+            after_commit on: [:create, :update] do |instance|
               changes = instance.instance_variable_get(:@__changed_attributes__)
 
               Array.wrap(self.public_send reverse_relationship).each do |record|
@@ -109,6 +109,15 @@ module Elasticsearch
               end if !reverse_trigger || reverse_trigger[instance, changes]
 
               instance.remove_instance_variable(:@__changed_attributes__)
+            end
+
+            after_destroy do |instance|
+              # after destroy would force a re-render 
+              Array.wrap(self.public_send reverse_relationship).each do |record|
+                # reload to remove the deleted attrs. TODO: find a proper way
+                record.reload 
+                record.es_partial_update(key_name) 
+              end
             end
           end
         end

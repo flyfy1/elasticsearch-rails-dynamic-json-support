@@ -151,6 +151,18 @@ RSpec.describe Elasticsearch::Model::CascadeUpdate, type: :model do
             @review.save!
           end
         end
+
+        describe 'destroy' do
+          it do
+            expect(@article.__elasticsearch__).to receive(:update_document_attributes).with(
+              "reviews"=>[ {"content"=>"review 1"} ]
+            )
+
+            @review = @article.reviews[1]
+            @review.destroy!
+          end
+        end
+
       end
     end
   end
