@@ -108,7 +108,7 @@ module Elasticsearch
                 record.es_partial_update(key_name) 
               end if !reverse_trigger || reverse_trigger[instance, changes]
 
-              instance.remove_instance_variable(:@__changed_attributes__)
+              instance.remove_instance_variable(:@__changed_attributes__) if instance.instance_variable_defined?(:@__changed_attributes__)
             end
 
             after_destroy do |instance|
