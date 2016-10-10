@@ -101,7 +101,7 @@ module Elasticsearch
               self.instance_variable_set(:@__changed_attributes__, instance.changes)
             end
 
-            after_commit on: [:create, :update] do |instance|
+            after_update do |instance|
               changes = instance.instance_variable_get(:@__changed_attributes__)
 
               Array.wrap(self.public_send reverse_relationship).each do |record|
