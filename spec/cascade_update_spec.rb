@@ -58,24 +58,6 @@ RSpec.describe Elasticsearch::Model::CascadeUpdate, type: :model do
     end
   end
 
-  context 'searchable' do
-    before do
-      @clz.class_eval do
-        es_register_attrs :title
-        es_to_json_when(:searchable) {|record| record.is_searchable }
-      end
-    end
-
-
-    it 'not send to es upon creation & update' do
-      @article = @clz.new title: 'oops', content: 'OooPs', is_searchable: false
-      expect(@article.__elasticsearch__).to receive(:update_document_attributes).never
-      @article.save!
-      @article.update(title: 'is changed')
-    end
-
-  end
-
   context 'assoc' do
     before do
       @article = @clz.create!(title: 'nani', content: 'oops')
@@ -184,4 +166,23 @@ RSpec.describe Elasticsearch::Model::CascadeUpdate, type: :model do
       end
     end
   end
+
+  context 'searchable' do
+    before do
+      @clz.class_eval do
+        es_register_attrs :title
+        es_to_json_when(:searchable) {|record| record.is_searchable }
+      end
+    end
+
+
+    it 'not send to es upon creation & update' do
+      @article = @clz.new title: 'oops', content: 'OooPs', is_searchable: false
+      expect(@article.__elasticsearch__).to receive(:update_document_attributes).never
+      @article.save!
+      @article.update(title: 'is changed')
+    end
+
+  end
+
 end
