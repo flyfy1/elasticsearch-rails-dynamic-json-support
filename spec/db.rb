@@ -7,6 +7,7 @@ ActiveRecord::Schema.define(version: 1) do
   create_table :articles do |t|
     t.string :title, null: false
     t.string :content, null: false
+    t.boolean :is_searchable, null: false, default: true
   end
 
   create_table :reviews do |t|
@@ -19,6 +20,8 @@ ActiveRecord::Schema.define(version: 1) do
 end
 
 class Article < ActiveRecord::Base
+  scope :searchable, -> { where(is_searchable: true) }
+
   validates_presence_of :title
   validates_presence_of :content
 end

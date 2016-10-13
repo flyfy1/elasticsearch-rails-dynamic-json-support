@@ -21,8 +21,8 @@ module Elasticsearch
         private
         def _should_pass_to_es
           tclz = target.class
-          return true unless tclz.class_variable_defined?(:@@_es_condition_block)
-          condition_blk = tclz.class_variable_get(:@@_es_condition_block)
+          return true unless tclz.instance_variable_defined?(:@_es_condition_block)
+          condition_blk = tclz.instance_variable_get :@_es_condition_block
           !condition_blk || condition_blk[self]
         end
       end
